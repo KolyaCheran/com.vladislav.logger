@@ -23,7 +23,7 @@ public class TestDAO {
     }
 
     public int createNewTest(Test test){
-        final String INSERT_SQL = "INSERT INTO test (name, suite_id, result) value (?, ?, ?)";
+        final String INSERT_SQL = "INSERT INTO test (name, suite_id, result, status) value (?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 new PreparedStatementCreator() {
@@ -33,6 +33,7 @@ public class TestDAO {
                         ps.setString(1, test.getName());
                         ps.setInt(2, test.getSuiteId());
                         ps.setString(3, test.getResult());
+                        ps.setString(4, test.getStatus());
                         return ps;
                     }
                 },

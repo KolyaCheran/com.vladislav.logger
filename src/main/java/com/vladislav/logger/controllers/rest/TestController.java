@@ -19,11 +19,13 @@ public class TestController {
     @PostMapping("/new")
     public String createNewTest(@RequestParam("name") String name,
                                  @RequestParam("suiteid") int suiteId,
+                                 @RequestParam("status") String status,
                                  @RequestParam("result") String result){
         Test test = new Test();
         test.setName(name);
         test.setSuiteId(suiteId);
         test.setResult(result);
+        test.setStatus(status);
         int testId = testDAO.createNewTest(test);
         return "{\"id\": " + testId +" }";
     }
