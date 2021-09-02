@@ -1,6 +1,7 @@
 package com.vladislav.logger.controllers.rest;
 
 import com.vladislav.logger.dao.SuiteDAO;
+import com.vladislav.logger.models.Step;
 import com.vladislav.logger.models.Suite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -48,5 +49,15 @@ public class SuiteController {
         suite.setEndSecond(endSecond);
         suiteDAO.finishSuite(suite);
         return "{\"success\": true}";
+    }
+
+    @PatchMapping("/{id}/update/result")
+    public String updateResult(@PathVariable("id") int stepId,
+                               @RequestParam("result") String result){
+        Suite suite = new Suite();
+        suite.setId(stepId);
+        suite.setResult(result);
+        suiteDAO.updateSuiteResult(suite);
+        return "{\"success\": true }";
     }
 }

@@ -1,6 +1,7 @@
 package com.vladislav.logger.dao;
 
 import com.vladislav.logger.models.Step;
+import com.vladislav.logger.models.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -39,5 +40,10 @@ public class StepDAO {
                 keyHolder);
 
         return keyHolder.getKey().intValue();
+    }
+
+    public void updateStepResult(Step step){
+        jdbcTemplate.update("UPDATE step SET result=? WHERE id=?",
+                step.getResult(), step.getId());
     }
 }

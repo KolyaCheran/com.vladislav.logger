@@ -52,4 +52,10 @@ public class SuiteDAO {
                 suite.getEndSecond(),
                 suite.getId());
     }
+
+    public void updateSuiteResult(Suite suite){
+        jdbcTemplate.update("UPDATE suite SET result=? WHERE id=?",
+                suite.getResult(),
+                suite.getId());
+    }
 }
