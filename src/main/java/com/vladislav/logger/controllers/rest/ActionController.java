@@ -3,10 +3,7 @@ package com.vladislav.logger.controllers.rest;
 import com.vladislav.logger.dao.ActionDAO;
 import com.vladislav.logger.models.Action;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/action")
@@ -35,5 +32,17 @@ public class ActionController {
         action.setActionSecond(actionSecond);
         int actionId = actionDAO.createNewAction(action);
         return "{\"id\": " + actionId +" }";
+    }
+
+    @PatchMapping("/{id}/update/error")
+    public String createNewTest(@PathVariable("id") int id,
+                                @RequestParam("error") String error,
+                                @RequestParam("result") String result){
+        Action action = new Action();
+        action.setId(id);
+        action.setError(error);
+        action.setResult(result);
+        actionDAO.updateActionError(action);
+        return "{\"success\": true }";
     }
 }

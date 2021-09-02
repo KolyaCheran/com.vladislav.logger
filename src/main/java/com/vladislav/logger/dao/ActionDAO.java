@@ -43,4 +43,9 @@ public class ActionDAO {
 
         return keyHolder.getKey().intValue();
     }
+
+    public void updateActionError(Action action){
+        jdbcTemplate.update("UPDATE action SET error=?, result=? WHERE id=?",
+                action.getError(), action.getResult(), action.getId());
+    }
 }
