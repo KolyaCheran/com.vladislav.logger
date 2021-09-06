@@ -1,7 +1,6 @@
 package com.vladislav.logger.controllers.rest;
 
 import com.vladislav.logger.dao.SuiteDAO;
-import com.vladislav.logger.models.Step;
 import com.vladislav.logger.models.Suite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
