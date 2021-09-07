@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+    <p th:text="${title}">Title</p>
+    <br>
+    <div th:each="run : ${runs}">
+        <a th:text="${run.getKey()}" th:href="@{/suites/{ids}(ids=${run.getValue()})}">Run name</a>
+        <br>
+    </div>
+</body>
+</html>
