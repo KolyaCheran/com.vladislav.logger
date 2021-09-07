@@ -56,6 +56,10 @@ public class TestDAO {
                 test.getStartSecond(), test.getResult(), test.getStatus(), test.getId());
     }
 
+    public void updateTestResult(Test test){
+        jdbcTemplate.update("UPDATE test SET result=? WHERE id=?", test.getResult(), test.getId());
+    }
+
     public void updateTestOnFinish(Test test){
         jdbcTemplate.update("UPDATE test SET " +
                         "end_day=?, " +

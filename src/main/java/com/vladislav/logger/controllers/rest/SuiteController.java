@@ -59,4 +59,14 @@ public class SuiteController {
         suiteDAO.updateSuiteResult(suite);
         return "{\"success\": true }";
     }
+
+    @PatchMapping("/{id}/update/status")
+    public String updateStatus(@PathVariable("id") int stepId,
+                               @RequestParam("status") String status){
+        Suite suite = new Suite();
+        suite.setId(stepId);
+        suite.setStatus(status);
+        suiteDAO.updateSuiteStatus(suite);
+        return "{\"success\": true }";
+    }
 }

@@ -48,8 +48,17 @@ public class TestController {
         test.setStartSecond(startSecond);
         test.setResult(result);
         test.setStatus(status);
-
         testDAO.updateTestOnStart(test);
+        return "{\"success\": true}";
+    }
+
+    @PatchMapping("/{id}/update/result")
+    public String updateTestResult(@PathVariable("id") int id,
+                                    @RequestParam("result") String result){
+        Test test = new Test();
+        test.setId(id);
+        test.setResult(result);
+        testDAO.updateTestResult(test);
         return "{\"success\": true}";
     }
 
@@ -71,7 +80,6 @@ public class TestController {
         test.setEndSecond(endSecond);
         test.setResult(result);
         test.setStatus(status);
-
         testDAO.updateTestOnFinish(test);
         return "{\"success\": true}";
     }

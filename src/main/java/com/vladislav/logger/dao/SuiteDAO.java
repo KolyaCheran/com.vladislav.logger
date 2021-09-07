@@ -58,4 +58,10 @@ public class SuiteDAO {
                 suite.getResult(),
                 suite.getId());
     }
+
+    public void updateSuiteStatus(Suite suite){
+        jdbcTemplate.update("UPDATE suite SET status=? WHERE id=?",
+                suite.getStatus(),
+                suite.getId());
+    }
 }
