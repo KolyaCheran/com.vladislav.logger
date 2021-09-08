@@ -16,11 +16,6 @@ public class RunController {
         this.runDAO = runDAO;
     }
 
-   /* @GetMapping
-    public String test(){
-        return "all works good!";
-    }*/
-
     @PostMapping("/new")
     public String createNewRun(@RequestParam("build") String build,
                                @RequestParam("day") int day,

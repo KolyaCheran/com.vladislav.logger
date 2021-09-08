@@ -30,7 +30,7 @@ public class BuildsController {
                            @RequestParam("year") int year,
                            Model model) {
         String titleText = "Runs for " + day + "." + month + "." + year;
-        Map<String, List<Integer>> runs = new HashMap<>();
+        Map<String, List<Integer>> runs;
         if (buildName != null && !buildName.isEmpty()) {
             runs = runDAO.getRunForDateAndBuildName(day, month, year, buildName);
             titleText += " and build name " + buildName;
@@ -45,15 +45,15 @@ public class BuildsController {
     private Map<String, String> convertIdsToString(Map<String, List<Integer>> runs) {
         Map<String, String> resultMap = new HashMap<>();
         for(Map.Entry<String, List<Integer>> run : runs.entrySet()){
-            String resultIds = null;
+            StringBuilder resultIds = null;
             for(Integer id : run.getValue()){
                 if (resultIds == null){
-                    resultIds = id.toString();
+                    resultIds = new StringBuilder(id.toString());
                 } else {
-                    resultIds += "," + id;
+                    resultIds.append(",").append(id);
                 }
             }
-            resultMap.put(run.getKey(), resultIds);
+            resultMap.put(run.getKey(), resultIds.toString());
         }
         return resultMap;
     }

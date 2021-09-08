@@ -11,6 +11,10 @@ import org.springframework.stereotype.Component;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class SuiteDAO {
@@ -18,18 +22,18 @@ public class SuiteDAO {
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public SuiteDAO(JdbcTemplate jdbcTemplate){
+    public SuiteDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public int createNewSuite(Suite suite){
+    public int createNewSuite(Suite suite) {
         final String INSERT_SQL = "INSERT INTO suite (run_id, status, start_hour, start_minute, start_second, name) value (?, ?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 new PreparedStatementCreator() {
                     public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                         PreparedStatement ps =
-                                connection.prepareStatement(INSERT_SQL, new String[] {"id"});
+                                connection.prepareStatement(INSERT_SQL, new String[]{"id"});
                         ps.setInt(1, suite.getRunId());
                         ps.setString(2, suite.getStatus());
                         ps.setInt(3, suite.getStartHour());
@@ -44,7 +48,7 @@ public class SuiteDAO {
         return keyHolder.getKey().intValue();
     }
 
-    public void finishSuite(Suite suite){
+    public void finishSuite(Suite suite) {
         jdbcTemplate.update("UPDATE suite SET status=?, end_hour=?, end_minute=?, end_second=? WHERE id=?",
                 suite.getStatus(),
                 suite.getEndHour(),
@@ -53,15 +57,34 @@ public class SuiteDAO {
                 suite.getId());
     }
 
-    public void updateSuiteResult(Suite suite){
+    public void updateSuiteResult(Suite suite) {
         jdbcTemplate.update("UPDATE suite SET result=? WHERE id=?",
                 suite.getResult(),
                 suite.getId());
     }
 
-    public void updateSuiteStatus(Suite suite){
+    public void updateSuiteStatus(Suite suite) {
         jdbcTemplate.update("UPDATE suite SET status=? WHERE id=?",
                 suite.getStatus(),
                 suite.getId());
+    }
+
+    public List<Suite> getSuites(String ids) {
+        String inSql = String.join(",", Collections.nCopies(ids.split(",").length, "?"));
+
+        List<Suite> suites = jdbcTemplate.query(
+                String.format("SELECT * FROM suite WHERE run_id IN (%s)", inSql),
+                ids.split(","),
+                (rs, rowNum) -> new Suite(rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("status"),
+                        rs.getString("result"),
+                        rs.getInt("start_second"),
+                        rs.getInt("start_minute"),
+                        rs.getInt("start_hour"),
+                        rs.getInt("end_second"),
+                        rs.getInt("end_minute"),
+                        rs.getInt("end_hour")));
+        return suites;
     }
 }

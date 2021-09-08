@@ -15,11 +15,9 @@ public class Suite {
     private int endSecond;
     private int endHour;
 
-    public Suite(int id, int runId, String name, String suiteInfo, String status, String result, int startMinute, int startHour, int startSecond, int endMinute, int endSecond, int endHour, int endMonth, int endYear) {
+    public Suite(int id, String name, String status, String result, int startSecond, int startMinute, int startHour, int endSecond, int endMinute, int endHour) {
         this.id = id;
-        this.runId = runId;
         this.name = name;
-        this.suiteInfo = suiteInfo;
         this.status = status;
         this.result = result;
         this.startMinute = startMinute;
@@ -28,8 +26,6 @@ public class Suite {
         this.endMinute = endMinute;
         this.endSecond = endSecond;
         this.endHour = endHour;
-        this.endMonth = endMonth;
-        this.endYear = endYear;
     }
 
     public String getName() {
@@ -92,9 +88,6 @@ public class Suite {
 
     }
 
-    private int endMonth;
-    private int endYear;
-
     public int getId() {
         return id;
     }
@@ -133,21 +126,5 @@ public class Suite {
 
     public void setResult(String result) {
         this.result = result;
-    }
-
-    public int getEndMonth() {
-        return endMonth;
-    }
-
-    public void setEndMonth(int endMonth) {
-        this.endMonth = endMonth;
-    }
-
-    public int getEndYear() {
-        return endYear;
-    }
-
-    public void setEndYear(int endYear) {
-        this.endYear = endYear;
     }
 }
