@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+    <style>
+        table {
+            width: 100%; /* Ширина таблицы */
+            border: 4px double black; /* Рамка вокруг таблицы */
+            border-collapse: collapse; /* Отображать только одинарные линии */
+        }
+        th {
+            text-align: left; /* Выравнивание по левому краю */
+            background: #ccc; /* Цвет фона ячеек */
+            padding: 5px; /* Поля вокруг содержимого ячеек */
+            border: 1px solid black; /* Граница вокруг ячеек */
+        }
+        td {
+            padding: 5px; /* Поля вокруг содержимого ячеек */
+            border: 1px solid black; /* Граница вокруг ячеек */
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Test name</th>
+            <th>Result</th>
+            <th>Status</th>
+            <th>Start time</th>
+            <th>End time</th>
+        </tr>
+        <tr th:each="currentTest : ${tests}">
+            <td>
+                <a th:text="${currentTest.getName()}">name</a>
+            </td>
+            <div th:switch="${currentTest.getResult()}">
+                <td th:case="passed" style="background-color: green" th:text="${currentTest.getResult()}">result</td>
+                <td th:case="failed" style="background-color: firebrick" th:text="${currentTest.getResult()}">result</td>
+                <td th:case="skip" style="background-color: gray" th:text="${currentTest.getResult()}">result</td>
+                <td th:case="*" style="background-color: cornflowerblue" th:text="${currentTest.getResult()}">result</td>
+            </div>
+            <div th:switch="${currentTest.getStatus()}">
+                <td th:case="finish" style="background-color: green" th:text="${currentTest.getStatus()}">status</td>
+                <td th:case="run" style="background-color: cornflowerblue" th:text="${currentTest.getStatus()}">status</td>
+                <td th:case="ready" style="background-color: cornflowerblue" th:text="${currentTest.getStatus()}">status</td>
+                <td th:case="*" style="background-color: gray" th:text="${currentTest.getStatus()}">status</td>
+            </div>
+            <td th:text="${currentTest.getStartHour()} + '.' + ${currentTest.getStartMinute()} + '.' + ${currentTest.getStartSecond()}">start time</td>
+            <td th:text="${currentTest.getEndHour()} + '.' + ${currentTest.getEndMinute()} + '.' + ${currentTest.getEndSecond()}">end time</td>
+        </tr>
+    </table>
+
+</body>
+</html>

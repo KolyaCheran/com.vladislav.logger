@@ -6,16 +6,29 @@ public class Test {
     private String name;
     private String status;
     private String result;
-    private int startDay;
-    private int startMonth;
     private int startHour;
     private int startMinute;
     private int startSecond;
-    private int endDay;
-    private int endMonth;
     private int endHour;
     private int endMinute;
     private int endSecond;
+
+    public Test(int id, String name, String status, String result, int startHour, int startMinute, int startSecond, int endHour, int endMinute, int endSecond) {
+        this.id = id;
+        this.name = name;
+        this.status = status;
+        this.result = result;
+        this.startHour = startHour;
+        this.startMinute = startMinute;
+        this.startSecond = startSecond;
+        this.endHour = endHour;
+        this.endMinute = endMinute;
+        this.endSecond = endSecond;
+    }
+
+    public Test(){
+
+    }
 
     public int getId() {
         return id;
@@ -57,22 +70,6 @@ public class Test {
         this.result = result;
     }
 
-    public int getStartDay() {
-        return startDay;
-    }
-
-    public void setStartDay(int startDay) {
-        this.startDay = startDay;
-    }
-
-    public int getStartMonth() {
-        return startMonth;
-    }
-
-    public void setStartMonth(int startMonth) {
-        this.startMonth = startMonth;
-    }
-
     public int getStartHour() {
         return startHour;
     }
@@ -95,22 +92,6 @@ public class Test {
 
     public void setStartSecond(int startSecond) {
         this.startSecond = startSecond;
-    }
-
-    public int getEndDay() {
-        return endDay;
-    }
-
-    public void setEndDay(int endDay) {
-        this.endDay = endDay;
-    }
-
-    public int getEndMonth() {
-        return endMonth;
-    }
-
-    public void setEndMonth(int endMonth) {
-        this.endMonth = endMonth;
     }
 
     public int getEndHour() {

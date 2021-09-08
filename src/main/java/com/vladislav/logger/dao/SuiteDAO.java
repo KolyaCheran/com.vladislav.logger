@@ -74,7 +74,6 @@ public class SuiteDAO {
 
         List<Suite> suites = jdbcTemplate.query(
                 String.format("SELECT * FROM suite WHERE run_id IN (%s)", inSql),
-                ids.split(","),
                 (rs, rowNum) -> new Suite(rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("status"),
@@ -84,7 +83,7 @@ public class SuiteDAO {
                         rs.getInt("start_hour"),
                         rs.getInt("end_second"),
                         rs.getInt("end_minute"),
-                        rs.getInt("end_hour")));
+                        rs.getInt("end_hour")), ids.split(","));
         return suites;
     }
 }

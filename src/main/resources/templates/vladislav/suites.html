@@ -31,7 +31,9 @@
             <th>End time</th>
         </tr>
         <tr th:each="suite : ${suites}">
-            <td th:text="${suite.getName()}">Name</td>
+            <td>
+                <a target="_blank" th:text="${suite.getName()}" th:href="@{/tests/{ids}(ids=${suite.getId()})}">name</a>
+            </td>
             <div th:switch="${suite.getResult()}">
                 <td th:case="passed" style="background-color: green" th:text="${suite.getResult()}">result</td>
                 <td th:case="failed" style="background-color: firebrick" th:text="${suite.getResult()}">result</td>

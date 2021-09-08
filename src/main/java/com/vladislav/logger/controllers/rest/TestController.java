@@ -32,8 +32,6 @@ public class TestController {
 
     @PatchMapping("/{id}/update/onstart")
     public String updateTestOnStart(@PathVariable("id") int id,
-                                @RequestParam("startday") int startDay,
-                                @RequestParam("startmonth") int startMonth,
                                 @RequestParam("starthour") int startHour,
                                 @RequestParam("startminute") int startMinute,
                                 @RequestParam("startsecond") int startSecond,
@@ -41,8 +39,6 @@ public class TestController {
                                 @RequestParam("status") String status){
         Test test = new Test();
         test.setId(id);
-        test.setStartDay(startDay);
-        test.setStartMonth(startMonth);
         test.setStartHour(startHour);
         test.setStartMinute(startMinute);
         test.setStartSecond(startSecond);
@@ -64,8 +60,6 @@ public class TestController {
 
     @PatchMapping("/{id}/update/onfinish")
     public String updateTestOnFinish(@PathVariable("id") int id,
-                                    @RequestParam("endday") int endDay,
-                                    @RequestParam("endmonth") int endMonth,
                                     @RequestParam("endhour") int endHour,
                                     @RequestParam("endminute") int endMinute,
                                     @RequestParam("endsecond") int endSecond,
@@ -73,8 +67,6 @@ public class TestController {
                                     @RequestParam("status") String status){
         Test test = new Test();
         test.setId(id);
-        test.setEndDay(endDay);
-        test.setEndMonth(endMonth);
         test.setEndHour(endHour);
         test.setEndMinute(endMinute);
         test.setEndSecond(endSecond);

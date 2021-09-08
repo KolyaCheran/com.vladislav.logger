@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 @Component
 public class TestDAO {
@@ -44,15 +45,13 @@ public class TestDAO {
 
     public void updateTestOnStart(Test test){
         jdbcTemplate.update("UPDATE test SET " +
-                "start_day=?, " +
-                "start_month=?," +
                 "start_hour=?," +
                 "start_minute=?," +
                 "start_second=?," +
                 "result=?," +
                 "status=?" +
                 "WHERE id=?",
-                test.getStartDay(), test.getStartMonth(), test.getStartHour(), test.getStartMinute(),
+                test.getStartHour(), test.getStartMinute(),
                 test.getStartSecond(), test.getResult(), test.getStatus(), test.getId());
     }
 
@@ -62,15 +61,28 @@ public class TestDAO {
 
     public void updateTestOnFinish(Test test){
         jdbcTemplate.update("UPDATE test SET " +
-                        "end_day=?, " +
-                        "end_month=?," +
                         "end_hour=?," +
                         "end_minute=?," +
                         "end_second=?," +
                         "result=?," +
                         "status=?" +
                         "WHERE id=?",
-                test.getEndDay(), test.getEndMonth(), test.getEndHour(), test.getEndMinute(),
+                test.getEndHour(), test.getEndMinute(),
                 test.getEndSecond(), test.getResult(), test.getStatus(), test.getId());
+    }
+
+    public List<Test> getTest(int id) {
+        List<Test> tests = jdbcTemplate.query("SELECT * FROM test WHERE suite_id=?",
+                (rs, rowNum) -> new Test(rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("status"),
+                        rs.getString("result"),
+                        rs.getInt("start_hour"),
+                        rs.getInt("start_minute"),
+                        rs.getInt("start_second"),
+                        rs.getInt("end_hour"),
+                        rs.getInt("end_minute"),
+                        rs.getInt("end_second")), new Integer[] {id});
+        return tests;
     }
 }
