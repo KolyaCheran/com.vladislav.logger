@@ -1,11 +1,32 @@
 package com.vladislav.logger.models;
 
+import java.util.List;
+
 public class Step {
 
     private int id;
     private int testId;
     private String result;
     private String message;
+    private List<Action> actions;
+
+    public Step(int id, String result, String message) {
+        this.id = id;
+        this.result = result;
+        this.message = message;
+    }
+
+    public Step() {
+
+    }
+
+    public List<Action> getActions() {
+        return actions;
+    }
+
+    public void setActions(List<Action> actions) {
+        this.actions = actions;
+    }
 
     public int getId() {
         return id;

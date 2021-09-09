@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Test details</title>
+    <style>
+        table {
+            width: 100%; /* Ширина таблицы */
+            border: 4px double black; /* Рамка вокруг таблицы */
+            border-collapse: collapse; /* Отображать только одинарные линии */
+        }
+
+        th {
+            text-align: left; /* Выравнивание по левому краю */
+            background: #ccc; /* Цвет фона ячеек */
+            padding: 5px; /* Поля вокруг содержимого ячеек */
+            border: 1px solid black; /* Граница вокруг ячеек */
+        }
+
+        td {
+            padding: 5px; /* Поля вокруг содержимого ячеек */
+            border: 1px solid black; /* Граница вокруг ячеек */
+        }
+
+        details {
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            padding: .5em .5em 0;
+        }
+    </style>
+</head>
+<body>
+<p th:text="'Steps for ' + ${currentTest.getName()} + ':'">title</p>
+<div th:each="step : ${currentTest.getSteps()}">
+    <details th:switch="${step.getResult()}">
+        <summary th:case="passed" th:text="${step.getMessage()}" style="color: green">Step name</summary>
+        <summary th:case="failed" th:text="${step.getMessage()}" style="color: darkred">Step name</summary>
+        <summary th:case="*" th:text="${step.getMessage()}" style="color: gray">Step name</summary>
+        <table>
+            <tr>
+                <th>Message</th>
+                <th>Result</th>
+                <th>Error</th>
+                <th>Attachments</th>
+                <th>Time</th>
+            </tr>
+            <tr th:each="action : ${step.getActions()}">
+                <td th:text="${action.getMessage()}">message</td>
+                <div th:switch="${action.getResult()}">
+                    <td th:case="passed" style="background-color: green" th:text="${action.getResult()}">result</td>
+                    <td th:case="failed" style="background-color: darkred" th:text="${action.getResult()}">result</td>
+                    <td th:case="*" style="background-color: gray" th:text="${action.getResult()}">result</td>
+                </div>
+                <td th:text="${action.getError()}">error</td>
+                <td>Attachment</td>
+                <td th:text="${action.getActionHour()} + ':' + ${action.getActionMinute()} + ':' + ${action.getActionSecond()}">
+                    time
+                </td>
+            </tr>
+        </table>
+    </details>
+</div>
+</body>
+</html>

@@ -9,24 +9,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-
-
 @Controller
-@RequestMapping("/tests")
-public class ViewTestsController {
+@RequestMapping("/test_details")
+public class TestDetailsController {
 
     private final TestDAO testDAO;
 
     @Autowired
-    public ViewTestsController(TestDAO testDAO) {
+    public TestDetailsController(TestDAO testDAO) {
         this.testDAO = testDAO;
     }
 
     @GetMapping("/{id}")
-    public String getTests(@PathVariable("id") int suiteId, Model model){
-        List<Test> tests = testDAO.getTests(suiteId);
-        model.addAttribute("tests", tests);
-        return "vladislav/tests";
+    public String getTestDetails(@PathVariable("id") int id, Model model){
+        Test test = testDAO.getTest(id);
+        model.addAttribute("currentTest", test);
+        return "vladislav/testDetails";
     }
 }

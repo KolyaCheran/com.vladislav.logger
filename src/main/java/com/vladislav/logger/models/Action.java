@@ -1,5 +1,7 @@
 package com.vladislav.logger.models;
 
+import java.util.List;
+
 public class Action {
 
     private int id;
@@ -10,6 +12,29 @@ public class Action {
     private int actionHour;
     private int actionMinute;
     private int actionSecond;
+    private List<Attachment> attachments;
+
+    public Action(int id, String message, String error, String result, int actionHour, int actionMinute, int actionSecond) {
+        this.id = id;
+        this.message = message;
+        this.error = error;
+        this.result = result;
+        this.actionHour = actionHour;
+        this.actionMinute = actionMinute;
+        this.actionSecond = actionSecond;
+    }
+
+    public Action() {
+
+    }
+
+    public List<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
+    }
 
     public String getResult() {
         return result;

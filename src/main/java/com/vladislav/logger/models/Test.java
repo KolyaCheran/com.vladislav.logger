@@ -1,5 +1,7 @@
 package com.vladislav.logger.models;
 
+import java.util.List;
+
 public class Test {
     private int id;
     private int suiteId;
@@ -12,6 +14,7 @@ public class Test {
     private int endHour;
     private int endMinute;
     private int endSecond;
+    private List<Step> steps;
 
     public Test(int id, String name, String status, String result, int startHour, int startMinute, int startSecond, int endHour, int endMinute, int endSecond) {
         this.id = id;
@@ -28,6 +31,14 @@ public class Test {
 
     public Test(){
 
+    }
+
+    public List<Step> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(List<Step> steps) {
+        this.steps = steps;
     }
 
     public int getId() {

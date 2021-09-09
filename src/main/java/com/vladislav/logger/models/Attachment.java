@@ -6,6 +6,15 @@ public class Attachment {
     private int actionId;
     private String location;
 
+    public Attachment(int id, String location) {
+        this.id = id;
+        this.location = location;
+    }
+
+    public Attachment() {
+
+    }
+
     public int getId() {
         return id;
     }

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Search</title>
+    <title>Suite</title>
     <style>
         table {
             width: 100%; /* Ширина таблицы */
@@ -46,8 +46,8 @@
                 <td th:case="ready" style="background-color: cornflowerblue" th:text="${suite.getStatus()}">status</td>
                 <td th:case="*" style="background-color: gray" th:text="${suite.getStatus()}">status</td>
             </div>
-            <td th:text="${suite.getStartHour()} + '.' + ${suite.getStartMinute()} + '.' + ${suite.getStartSecond()}">start time</td>
-            <td th:text="${suite.getEndHour()} + '.' + ${suite.getEndMinute()} + '.' + ${suite.getEndSecond()}">end time</td>
+            <td th:text="${suite.getStartHour()} + ':' + ${suite.getStartMinute()} + ':' + ${suite.getStartSecond()}">start time</td>
+            <td th:text="${suite.getEndHour()} + ':' + ${suite.getEndMinute()} + ':' + ${suite.getEndSecond()}">end time</td>
         </tr>
     </table>
 
