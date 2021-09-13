@@ -1,6 +1,7 @@
 package com.vladislav.logger.dao;
 
 import com.vladislav.logger.models.Attachment;
+import com.vladislav.logger.models.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 @Component
 public class AttachmentDAO {
@@ -38,6 +40,14 @@ public class AttachmentDAO {
                 keyHolder);
 
         return keyHolder.getKey().intValue();
+    }
+
+    public Attachment getAttachment(int attachmentId) {
+        List<Attachment> attachments = jdbcTemplate.query("SELECT * FROM attachments WHERE id=? ORDER BY id ASC",
+                (rs, rowNum) -> new Attachment(rs.getInt("id"),
+                       rs.getString("location")),
+                new Integer[]{attachmentId});
+        return attachments.get(0);
     }
 
 }

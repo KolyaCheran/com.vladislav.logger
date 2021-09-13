@@ -11,7 +11,7 @@
         }
         th {
             text-align: left; /* Выравнивание по левому краю */
-            background: #ccc; /* Цвет фона ячеек */
+            background: cornflowerblue; /* Цвет фона ячеек */
             padding: 5px; /* Поля вокруг содержимого ячеек */
             border: 1px solid black; /* Граница вокруг ячеек */
         }
@@ -32,7 +32,7 @@
         </tr>
         <tr th:each="currentTest : ${tests}">
             <td>
-                <a th:text="${currentTest.getName()}" th:href="@{/test_details/{id}(id=${currentTest.getId()})}">name</a>
+                <a target="_blank" th:text="${currentTest.getName()}" th:href="@{/test_details/{id}(id=${currentTest.getId()})}">name</a>
             </td>
             <div th:switch="${currentTest.getResult()}">
                 <td th:case="passed" style="background-color: green" th:text="${currentTest.getResult()}">result</td>

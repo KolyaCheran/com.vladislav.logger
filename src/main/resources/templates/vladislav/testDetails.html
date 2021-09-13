@@ -12,7 +12,7 @@
 
         th {
             text-align: left; /* Выравнивание по левому краю */
-            background: #ccc; /* Цвет фона ячеек */
+            background: cornflowerblue; /* Цвет фона ячеек */
             padding: 5px; /* Поля вокруг содержимого ячеек */
             border: 1px solid black; /* Граница вокруг ячеек */
         }
@@ -52,10 +52,12 @@
                     <td th:case="*" style="background-color: gray" th:text="${action.getResult()}">result</td>
                 </div>
                 <td th:text="${action.getError()}">error</td>
-                <td>Attachment</td>
-                <td th:text="${action.getActionHour()} + ':' + ${action.getActionMinute()} + ':' + ${action.getActionSecond()}">
-                    time
+                <td>
+                    <div th:each="attachment : ${action.getAttachments()}">
+                        <a target="_blank" th:href="@{/attachment/image/page/{id}(id=${attachment.getId()})}">Screen</a>
+                    </div>
                 </td>
+                <td th:text="${action.getActionHour()} + ':' + ${action.getActionMinute()} + ':' + ${action.getActionSecond()}">time</td>
             </tr>
         </table>
     </details>
