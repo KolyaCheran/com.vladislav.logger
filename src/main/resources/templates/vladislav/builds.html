@@ -11,12 +11,17 @@
 <body>
 
     <div th:replace="vladislav/header :: copy"></div>
-
-    <p th:text="${title}">Title</p>
-    <br>
-    <div th:each="run : ${runs}">
-        <a th:text="${run.getKey()}" th:href="@{/suites/{ids}(ids=${run.getValue()})}">Run name</a>
-        <br>
-    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col" th:text="${title}">Build name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="run : ${runs}">
+                <td><a th:text="${run.getKey()}" th:href="@{/suites/{ids}(ids=${run.getValue()})}">Run name</a></td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>
