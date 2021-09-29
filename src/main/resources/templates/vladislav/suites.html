@@ -13,6 +13,10 @@
 
     <div th:replace="vladislav/header :: copy"></div>
 
+    <div class="mx-auto m-2" style="width: 200px;">
+        <a target="_blank" class="btn btn-primary stretched-link" th:href="@{/report/{ids}(ids=${suiteIds})}">Results for all build</a>
+    </div>
+
     <table class="table table-hover">
         <thead>
             <tr>

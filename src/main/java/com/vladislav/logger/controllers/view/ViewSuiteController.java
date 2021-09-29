@@ -21,9 +21,22 @@ public class ViewSuiteController {
     }
 
     @GetMapping("/{ids}")
-    public String createNewSuite(@PathVariable("ids") String ids, Model model){
+    public String getSuites(@PathVariable("ids") String ids, Model model){
         List<Suite> suites = suiteDAO.getSuites(ids);
+        model.addAttribute("suiteIds", getIdsFromSuites(suites));
         model.addAttribute("suites", suites);
         return "vladislav/suites";
+    }
+
+    private String getIdsFromSuites(List<Suite> suites){
+        StringBuilder sb = null;
+        for (Suite suite : suites){
+            if (sb == null){
+                sb = new StringBuilder(String.valueOf(suite.getId()));
+            } else {
+                sb.append(",").append(suite.getId());
+            }
+        }
+        return sb.toString();
     }
 }
