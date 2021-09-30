@@ -30,7 +30,7 @@ public class ReportController {
 
     private String getPassRate(Report report){
         double passed = report.getPassedTests().size();
-        double total = report.getAllTests().size();
-        return String.format("%.2f", passed / total * 100);
+        double totalFinished = report.getFinishedTests().size();
+        return String.format("%.2f", passed / totalFinished * 100);
     }
 }

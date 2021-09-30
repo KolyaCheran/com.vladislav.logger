@@ -41,12 +41,12 @@
     <div th:replace="vladislav/header :: copy"></div>
 
     <div id="piechart" style="width: 500px; height: 300px;"></div>
-    <p th:text="'Passrate ' + ${passrate}">
-    <p th:text="'Total ' + ${report.getAllTests().size()}">
+    <p th:text="'Passrate ' + ${passrate} + '%'">
     <p th:text="'Passed ' + ${report.getPassedTests().size()}">
     <p th:text="'Failed ' + ${report.getFailedTests().size()}">
     <p th:text="'Finished ' + ${report.getFinishedTests().size()}">
     <p th:text="'Not finished ' + ${report.getNotFinishedTests().size()}">
+    <p th:text="'Total ' + ${report.getAllTests().size()}">
 
 </body>
 </html>
