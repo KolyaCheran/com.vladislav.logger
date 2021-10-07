@@ -37,16 +37,21 @@
 </head>
 <body>
 
-
     <div th:replace="vladislav/header :: copy"></div>
 
-    <div id="piechart" style="width: 500px; height: 300px;"></div>
-    <p th:text="'Passrate ' + ${passrate} + '%'">
-    <p th:text="'Passed ' + ${report.getPassedTests().size()}">
-    <p th:text="'Failed ' + ${report.getFailedTests().size()}">
-    <p th:text="'Finished ' + ${report.getFinishedTests().size()}">
-    <p th:text="'Not finished ' + ${report.getNotFinishedTests().size()}">
-    <p th:text="'Total ' + ${report.getAllTests().size()}">
+    <div class="container">
+        <div class="card-deck text-center" style="justify-content: center; align-items: center">
+            <div id="piechart" style="width: 500px; height: 300px;"></div>
+            <div>
+                <p th:text="'Passrate ' + ${passrate} + '%'">
+                <p th:text="'Passed ' + ${report.getPassedTests().size()}">
+                <p th:text="'Failed ' + ${report.getFailedTests().size()}">
+                <p th:text="'Finished ' + ${report.getFinishedTests().size()}">
+                <p th:text="'Not finished ' + ${report.getNotFinishedTests().size()}">
+                <p th:text="'Total ' + ${report.getAllTests().size()}">
+            </div>
+        </div>
+    </div>
 
     <table class="table table-hover">
         <thead>
