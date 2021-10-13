@@ -26,7 +26,7 @@
         </thead>
         <tbody>
             <tr th:each="currentTest : ${tests}">
-                <td scope="row">
+                <td >
                     <a target="_blank" th:text="${currentTest.getName()}" th:href="@{/test_details/{id}(id=${currentTest.getId()})}">name</a>
                 </td>
                 <div th:switch="${currentTest.getResult()}">

@@ -65,7 +65,7 @@
         </thead>
         <tbody>
             <tr th:each="suite : ${suites}">
-                <td scope="row">
+                <td >
                     <a target="_blank" th:text="${suite.getName()}" th:href="@{/tests/{ids}(ids=${suite.getId()})}">name</a>
                 </td>
                 <div th:switch="${suite.getResult()}">

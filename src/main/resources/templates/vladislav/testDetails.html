@@ -42,7 +42,7 @@
                         </thead>
                         <tbody>
                             <tr th:each="action : ${step.getActions()}">
-                                <td scope="row" th:text="${action.getMessage()}">message</td>
+                                <td th:text="${action.getMessage()}">message</td>
                                 <div th:switch="${action.getResult()}">
                                     <td th:case="passed" class="table-success" th:text="${action.getResult()}">result</td>
                                     <td th:case="failed" class="table-danger" th:text="${action.getResult()}">result</td>
