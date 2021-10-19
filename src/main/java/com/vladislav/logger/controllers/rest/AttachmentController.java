@@ -29,7 +29,7 @@ public class AttachmentController {
         attachment.setLocation(location);
         attachment.setId(attachmentDAO.createNewAttachment(attachment));
 
-        File newFile = new File(location + "\\" + attachment.getId() + ".png");
+        File newFile = new File(location + "\\" + attachment.getId() + ".jpeg");
         newFile.getParentFile().mkdirs();
         try {
             file.transferTo(newFile);

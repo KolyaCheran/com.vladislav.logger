@@ -33,8 +33,8 @@ public class ViewAttachmentController {
 
     @GetMapping(value = "/image/{id}")
     public @ResponseBody byte[] getImage(@PathVariable("id") String id) {
-        Attachment attachment = attachmentDAO.getAttachment(Integer.valueOf(id.replaceAll("\\.png", "")));
-        return extractBytes(attachment.getLocation() + "\\" + attachment.getId() + ".png");
+        Attachment attachment = attachmentDAO.getAttachment(Integer.valueOf(id.replaceAll("\\.jpeg", "")));
+        return extractBytes(attachment.getLocation() + "\\" + attachment.getId() + ".jpeg");
     }
 
     public byte[] extractBytes(String ImageName) {
@@ -43,7 +43,7 @@ public class ViewAttachmentController {
             File file = new File(ImageName);
             BufferedImage originalImage = ImageIO.read(file);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(originalImage, "png", baos);
+            ImageIO.write(originalImage, "jpeg", baos);
             imageInByte = baos.toByteArray();
         } catch (IOException e) {
             e.printStackTrace();
