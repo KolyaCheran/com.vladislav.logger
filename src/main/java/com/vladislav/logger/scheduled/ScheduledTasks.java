@@ -15,7 +15,7 @@ import java.util.List;
 public class ScheduledTasks {
 
 
-    @Scheduled(cron = "0 0 0/1 * * *")
+    @Scheduled(cron = "0 0 */1 * * *")
     private void deleteOldAttachments(){
         System.out.println("Try to remove old attachments");
         String location = System.getProperty("user.home") + "\\screens\\";
