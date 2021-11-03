@@ -65,6 +65,11 @@ public class Action {
     }
 
     public void setMessage(String message) {
+        if(message.length() > 1000){
+            System.out.println("Message is longer than 10000 chars. Extra chars removed");
+            this.message = message.substring(0, 1000);
+            return;
+        }
         this.message = message;
     }
 
@@ -73,6 +78,11 @@ public class Action {
     }
 
     public void setError(String error) {
+        if(error.length() > 10000){
+            System.out.println("Error is longer than 10000 chars. Extra chars removed");
+            this.error = error.substring(0, 10000);
+            return;
+        }
         this.error = error;
     }
 
