@@ -66,7 +66,7 @@ public class Action {
 
     public void setMessage(String message) {
         if(message.length() > 1000){
-            System.out.println("Message is longer than 10000 chars. Extra chars removed");
+            System.out.println("Message is longer than 1000 chars. Extra chars removed");
             this.message = message.substring(0, 1000);
             return;
         }
