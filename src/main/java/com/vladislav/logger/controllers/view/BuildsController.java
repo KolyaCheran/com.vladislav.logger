@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/builds")
@@ -24,20 +25,23 @@ public class BuildsController {
     }
 
     @GetMapping()
-    public String homePage(@RequestParam("buildname") String buildName,
+    public String buildsPage(@RequestParam("buildname") String buildName,
                            @RequestParam("day") int day,
                            @RequestParam("month") int month,
                            @RequestParam("year") int year,
                            Model model) {
         String titleText = "Runs for " + day + "." + month + "." + year;
-        Map<String, List<Integer>> runs;
+        Set<String> runs;
         if (buildName != null && !buildName.isEmpty()) {
             runs = runDAO.getRunForDateAndBuildName(day, month, year, buildName);
             titleText += " and build name " + buildName;
         } else {
             runs = runDAO.getRunForDate(day, month, year);
         }
-        model.addAttribute("runs", convertIdsToString(runs));
+        model.addAttribute("runs", runs);
+        model.addAttribute("day", day);
+        model.addAttribute("month", month);
+        model.addAttribute("year", year);
         model.addAttribute("title", titleText);
         return "vladislav/builds";
     }

@@ -1,5 +1,6 @@
 package com.vladislav.logger.dao;
 
+import com.vladislav.logger.models.Action;
 import com.vladislav.logger.models.Suite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -84,6 +85,23 @@ public class SuiteDAO {
                         rs.getInt("end_second"),
                         rs.getInt("end_minute"),
                         rs.getInt("end_hour")), ids.split(","));
+        return suites;
+    }
+
+    public List<Suite> getSuites(String buildName, String day, String month, String year) {
+        String query = "SELECT * FROM run AS r RIGHT JOIN suite AS s ON r.id = s.run_id WHERE r.year=? AND r.month=? AND r.day=? AND build=?;";
+        List<Suite> suites = jdbcTemplate.query(query,
+                (rs, rowNun) -> new Suite(rs.getInt("s.id"),
+                        rs.getString("name"),
+                        rs.getString("status"),
+                        rs.getString("result"),
+                        rs.getInt("start_second"),
+                        rs.getInt("start_minute"),
+                        rs.getInt("start_hour"),
+                        rs.getInt("end_second"),
+                        rs.getInt("end_minute"),
+                        rs.getInt("end_hour")),
+                new Object[]{year, month, day, buildName});
         return suites;
     }
 }

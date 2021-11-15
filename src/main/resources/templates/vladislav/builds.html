@@ -19,7 +19,7 @@
         </thead>
         <tbody>
             <tr th:each="run : ${runs}">
-                <td><a th:text="${run.getKey()}" th:href="@{/suites/{ids}(ids=${run.getValue()})}">Run name</a></td>
+                <td><a th:text="${run}" th:href="@{|/suites?build=${run}&day=${day}&month=${month}&year=${year}|}">Run name</a></td>
             </tr>
         </tbody>
     </table>

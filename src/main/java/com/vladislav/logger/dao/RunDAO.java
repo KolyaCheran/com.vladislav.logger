@@ -11,10 +11,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class RunDAO {
@@ -46,23 +43,20 @@ public class RunDAO {
         return keyHolder.getKey().intValue();
     }
 
-    public Map<String, List<Integer>> getRunForDate(int day, int month, int year){
-        return getRunsAndIds(jdbcTemplate.queryForList("SELECT build, id FROM run where year=? and month=? and day=?",
+    public Set<String> getRunForDate(int day, int month, int year){
+        return getRunsAndIds(jdbcTemplate.queryForList("SELECT build FROM run where year=? and month=? and day=?",
                 year, month, day));
     }
 
-    public Map<String, List<Integer>> getRunForDateAndBuildName(int day, int month, int year, String buildName){
-        return getRunsAndIds(jdbcTemplate.queryForList("SELECT build, id FROM run where year=? and month=? and day=? and build=?",
+    public Set<String> getRunForDateAndBuildName(int day, int month, int year, String buildName){
+        return getRunsAndIds(jdbcTemplate.queryForList("SELECT build FROM run where year=? and month=? and day=? and build=?",
                 year, month, day, buildName));
     }
 
-    private Map<String, List<Integer>> getRunsAndIds(List<Map<String, Object>> runs){
-        Map<String, List<Integer>> uniqueRuns = new HashMap<>();
+    private Set<String> getRunsAndIds(List<Map<String, Object>> runs){
+        Set<String> uniqueRuns = new HashSet<>();
         runs.stream().forEach(val -> {
-            if (!uniqueRuns.containsKey(String.valueOf(val.get("build")))) {
-                uniqueRuns.put(String.valueOf(val.get("build")), new ArrayList<>());
-            }
-            uniqueRuns.get(String.valueOf(val.get("build"))).add((Integer) val.get("id"));
+            uniqueRuns.add(String.valueOf(val.get("build")));
         });
         return uniqueRuns;
     }

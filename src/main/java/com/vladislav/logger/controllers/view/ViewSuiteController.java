@@ -24,9 +24,13 @@ public class ViewSuiteController {
         this.reportDAO = reportDAO;
     }
 
-    @GetMapping("/{ids}")
-    public String getSuites(@PathVariable("ids") String ids, Model model){
-        List<Suite> suites = suiteDAO.getSuites(ids);
+    @GetMapping()
+    public String getSuites(@RequestParam("build") String build,
+                            @RequestParam("day") String day,
+                            @RequestParam("month") String month,
+                            @RequestParam("year") String year,
+                            Model model){
+        List<Suite> suites =  suiteDAO.getSuites(build, day, month, year);
         model.addAttribute("suiteIds", getIdsFromSuites(suites));
         model.addAttribute("suites", suites);
 
