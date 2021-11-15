@@ -39,12 +39,11 @@
 
     <div th:replace="vladislav/header :: copy"></div>
 
-    <p th:text="${title}">Title text</p>
-
     <div class="container">
         <div class="card-deck text-center" style="justify-content: center; align-items: center">
             <div id="piechart" style="width: 500px; height: 300px;"></div>
             <div>
+                <p th:text="${title}">Title text</p>
                 <p th:text="'Passrate ' + ${passrate} + '%'">
                 <p th:text="'Passed ' + ${report.getPassedTests().size()}">
                 <p th:text="'Failed ' + ${report.getFailedTests().size()}">
