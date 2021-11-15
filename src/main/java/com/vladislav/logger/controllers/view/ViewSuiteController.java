@@ -35,6 +35,8 @@ public class ViewSuiteController {
         model.addAttribute("suites", suites);
 
         Report report = reportDAO.getReportBySuiteIDs(getIdsFromSuites(suites));
+        String titleText = "Run for build '" + build + "' - " + day + "." + month + "." + year;
+        model.addAttribute("title", titleText);
         model.addAttribute("report", report);
         model.addAttribute("passrate", getPassRate(report));
         return "vladislav/suites";
