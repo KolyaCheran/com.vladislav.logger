@@ -48,7 +48,7 @@
                                     <td th:case="failed" class="table-danger" th:text="${action.getResult()}">result</td>
                                     <td th:case="*" class="table-secondary" th:text="${action.getResult()}">result</td>
                                 </div>
-                                <td> <pre th:text="${action.getError()}">error </pre></td>
+                                <td th:text="${action.getError()}">error </td>
                                 <td>
                                     <div th:each="attachment : ${action.getAttachments()}">
                                         <a target="_blank" th:href="@{/attachment/image/page/{id}(id=${attachment.getId()})}">Screen</a>
