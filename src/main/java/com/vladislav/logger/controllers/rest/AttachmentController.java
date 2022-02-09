@@ -21,7 +21,7 @@ public class AttachmentController {
 
 
     @PostMapping( "/image")
-    public String createNewTest(@RequestParam("image") MultipartFile file,
+    public String createNewImgAttach(@RequestParam("image") MultipartFile file,
                                 @RequestParam("actionid") int actionId){
         String location = getFileLocationByDate();
         Attachment attachment = new Attachment();
