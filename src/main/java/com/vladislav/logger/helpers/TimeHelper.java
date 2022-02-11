@@ -10,6 +10,6 @@ public class TimeHelper {
     }
 
     public static long getUnixTimeStampMinusDays(int minusDays){
-        return Instant.now().plus(minusDays, ChronoUnit.DAYS).getEpochSecond();
+        return Instant.now().minus(minusDays, ChronoUnit.DAYS).getEpochSecond();
     }
 }
