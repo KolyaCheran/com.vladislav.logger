@@ -29,10 +29,11 @@ public class ReportDAO {
         report.setSkippedTests(getTestsByResult(allTests, "skipped"));
         report.setFinishedTests(getTestsByStatus(allTests, true));
         report.setNotFinishedTests(getTestsByStatus(allTests, false));
+        report.setSuiteIds(ids);
         return report;
     }
 
-    public List<Test> getTestsByResult(List<Test> allTests, String result) {
+    private List<Test> getTestsByResult(List<Test> allTests, String result) {
         List<Test> resultList = new ArrayList<>();
         for (Test test : allTests) {
             if (test.getResult().equalsIgnoreCase(result) && test.getStatus().equalsIgnoreCase("finish")){
@@ -42,7 +43,7 @@ public class ReportDAO {
         return resultList;
     }
 
-    public List<Test> getTestsByStatus(List<Test> allTests, boolean finished) {
+    private List<Test> getTestsByStatus(List<Test> allTests, boolean finished) {
          List<Test> statusList = new ArrayList<>();
         for (Test test : allTests) {
             if (finished && test.getStatus().equalsIgnoreCase("finish")){
@@ -59,6 +60,24 @@ public class ReportDAO {
 
         List<Test> tests = jdbcTemplate.query(
                 String.format("SELECT * FROM test WHERE suite_id IN (%s)", inSql),
+                (rs, rowNum) -> new Test(rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("status"),
+                        rs.getString("result"),
+                        rs.getInt("start_hour"),
+                        rs.getInt("start_minute"),
+                        rs.getInt("start_second"),
+                        rs.getInt("end_hour"),
+                        rs.getInt("end_minute"),
+                        rs.getInt("end_second")), ids.split(","));
+        return tests;
+    }
+
+    public List<Test> getFailedTests(String ids) {
+        String inSql = String.join(",", Collections.nCopies(ids.split(",").length, "?"));
+
+        List<Test> tests = jdbcTemplate.query(
+                String.format("SELECT * FROM test WHERE suite_id IN (%s) AND result='failed'", inSql),
                 (rs, rowNum) -> new Test(rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("status"),

@@ -10,6 +10,15 @@ public class Report {
     private List<Test> skippedTests;
     private List<Test> finishedTests;
     private List<Test> notFinishedTests;
+    private String suiteIds; // comma separated
+
+    public String getSuiteIds() {
+        return suiteIds;
+    }
+
+    public void setSuiteIds(String suiteIds) {
+        this.suiteIds = suiteIds;
+    }
 
     public List<Test> getAllTests() {
         return allTests;

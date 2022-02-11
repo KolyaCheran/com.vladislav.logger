@@ -44,13 +44,13 @@
             <div id="piechart" style="width: 500px; height: 300px;"></div>
             <div>
                 <p th:text="${title}">Title text</p>
-                <p th:text="'Passrate ' + ${passrate} + '%'">
-                <p th:text="'Passed ' + ${report.getPassedTests().size()}">
-                <p th:text="'Failed ' + ${report.getFailedTests().size()}">
-                <p th:text="'Skipped ' + ${report.getSkippedTests().size()}">
-                <p th:text="'Finished ' + ${report.getFinishedTests().size()}">
-                <p th:text="'Not finished ' + ${report.getNotFinishedTests().size()}">
-                <p th:text="'Total ' + ${report.getAllTests().size()}">
+                <p th:text="'Passrate - ' + ${passrate} + '%'">
+                <p th:text="'Passed - ' + ${report.getPassedTests().size()}">
+                <p>Failed - <a target="_blank" th:text="${report.getFailedTests().size()}" th:href="@{/tests/failed/{ids}(ids=${report.getSuiteIds()})}">name</a></p>
+                <p th:text="'Skipped - ' + ${report.getSkippedTests().size()}">
+                <p th:text="'Finished - ' + ${report.getFinishedTests().size()}">
+                <p th:text="'Not finished - ' + ${report.getNotFinishedTests().size()}">
+                <p th:text="'Total - ' + ${report.getAllTests().size()}">
             </div>
         </div>
     </div>
