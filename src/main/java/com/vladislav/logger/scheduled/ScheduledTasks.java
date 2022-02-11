@@ -68,7 +68,7 @@ public class ScheduledTasks {
         return !days.contains(directory);
     }
 
-    @Scheduled(cron = "0 0 */1 * * *")
+    //@Scheduled(cron = "0 0 */1 * * *")
     private void deleteOldRowsFromDB(){
         System.out.println("Try to remove old DB rows");
         removeOldActions();
