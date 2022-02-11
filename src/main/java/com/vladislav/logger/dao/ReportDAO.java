@@ -90,4 +90,22 @@ public class ReportDAO {
                         rs.getInt("end_second")), ids.split(","));
         return tests;
     }
+
+    public List<Test> getSkippedTests(String ids) {
+        String inSql = String.join(",", Collections.nCopies(ids.split(",").length, "?"));
+
+        List<Test> tests = jdbcTemplate.query(
+                String.format("SELECT * FROM test WHERE suite_id IN (%s) AND result='skipped'", inSql),
+                (rs, rowNum) -> new Test(rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("status"),
+                        rs.getString("result"),
+                        rs.getInt("start_hour"),
+                        rs.getInt("start_minute"),
+                        rs.getInt("start_second"),
+                        rs.getInt("end_hour"),
+                        rs.getInt("end_minute"),
+                        rs.getInt("end_second")), ids.split(","));
+        return tests;
+    }
 }

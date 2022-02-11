@@ -39,4 +39,11 @@ public class ViewTestsController {
         model.addAttribute("tests", tests);
         return "vladislav/tests";
     }
+
+    @GetMapping("/skipped/{id}")
+    public String getSkippedTests(@PathVariable("id") String suiteIds, Model model){
+        List<Test> tests = reportDAO.getSkippedTests(suiteIds);
+        model.addAttribute("tests", tests);
+        return "vladislav/tests";
+    }
 }

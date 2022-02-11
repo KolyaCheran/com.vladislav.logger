@@ -47,7 +47,7 @@
                 <p th:text="'Passrate - ' + ${passrate} + '%'">
                 <p th:text="'Passed - ' + ${report.getPassedTests().size()}">
                 <p>Failed - <a target="_blank" th:text="${report.getFailedTests().size()}" th:href="@{/tests/failed/{ids}(ids=${report.getSuiteIds()})}">name</a></p>
-                <p th:text="'Skipped - ' + ${report.getSkippedTests().size()}">
+                <p>Skipped - <a target="_blank" th:text="${report.getSkippedTests().size()}" th:href="@{/tests/skipped/{ids}(ids=${report.getSuiteIds()})}">name</a></p>
                 <p th:text="'Finished - ' + ${report.getFinishedTests().size()}">
                 <p th:text="'Not finished - ' + ${report.getNotFinishedTests().size()}">
                 <p th:text="'Total - ' + ${report.getAllTests().size()}">
