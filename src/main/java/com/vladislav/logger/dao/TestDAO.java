@@ -1,5 +1,6 @@
 package com.vladislav.logger.dao;
 
+import com.vladislav.logger.helpers.TimeHelper;
 import com.vladislav.logger.models.Action;
 import com.vladislav.logger.models.Attachment;
 import com.vladislav.logger.models.Step;
@@ -27,7 +28,7 @@ public class TestDAO {
     }
 
     public int createNewTest(Test test){
-        final String INSERT_SQL = "INSERT INTO test (name, suite_id, result, status) value (?, ?, ?, ?)";
+        final String INSERT_SQL = "INSERT INTO test (name, suite_id, result, status, timestamp) value (?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 new PreparedStatementCreator() {
@@ -38,6 +39,7 @@ public class TestDAO {
                         ps.setInt(2, test.getSuiteId());
                         ps.setString(3, test.getResult());
                         ps.setString(4, test.getStatus());
+                        ps.setInt(5, (int)TimeHelper.getUnixTimeStamp());
                         return ps;
                     }
                 },

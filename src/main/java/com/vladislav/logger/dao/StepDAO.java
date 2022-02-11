@@ -1,5 +1,6 @@
 package com.vladislav.logger.dao;
 
+import com.vladislav.logger.helpers.TimeHelper;
 import com.vladislav.logger.models.Step;
 import com.vladislav.logger.models.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class StepDAO {
     }
 
     public int createNewStep(Step step){
-        final String INSERT_SQL = "INSERT INTO step (test_id, result, message) value (?, ?, ?)";
+        final String INSERT_SQL = "INSERT INTO step (test_id, result, message, timestamp) value (?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 new PreparedStatementCreator() {
@@ -34,6 +35,7 @@ public class StepDAO {
                         ps.setInt(1, step.getTestId());
                         ps.setString(2, step.getResult());
                         ps.setString(3, step.getMessage());
+                        ps.setInt(4, (int) TimeHelper.getUnixTimeStamp());
                         return ps;
                     }
                 },

@@ -1,5 +1,6 @@
 package com.vladislav.logger.dao;
 
+import com.vladislav.logger.helpers.TimeHelper;
 import com.vladislav.logger.models.Action;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,7 +24,7 @@ public class ActionDAO {
     }
 
     public int createNewAction(Action action){
-        final String INSERT_SQL = "INSERT INTO action (step_id, message, result, action_hour, action_minute, action_second) value (?, ?, ?, ?, ?, ?)";
+        final String INSERT_SQL = "INSERT INTO action (step_id, message, result, action_hour, action_minute, action_second, timestamp ) value (?, ?, ?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 new PreparedStatementCreator() {
@@ -36,6 +37,7 @@ public class ActionDAO {
                         ps.setInt(4, action.getActionHour());
                         ps.setInt(5, action.getActionMinute());
                         ps.setInt(6, action.getActionSecond());
+                        ps.setInt(7, (int) TimeHelper.getUnixTimeStamp());
                         return ps;
                     }
                 },

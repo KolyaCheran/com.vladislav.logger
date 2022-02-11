@@ -1,5 +1,6 @@
 package com.vladislav.logger.dao;
 
+import com.vladislav.logger.helpers.TimeHelper;
 import com.vladislav.logger.models.Action;
 import com.vladislav.logger.models.Suite;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class SuiteDAO {
     }
 
     public int createNewSuite(Suite suite) {
-        final String INSERT_SQL = "INSERT INTO suite (run_id, status, start_hour, start_minute, start_second, name) value (?, ?, ?, ?, ?, ?)";
+        final String INSERT_SQL = "INSERT INTO suite (run_id, status, start_hour, start_minute, start_second, name, timestamp) value (?, ?, ?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 new PreparedStatementCreator() {
@@ -41,6 +42,7 @@ public class SuiteDAO {
                         ps.setInt(4, suite.getStartMinute());
                         ps.setInt(5, suite.getStartSecond());
                         ps.setString(6, suite.getName());
+                        ps.setInt(7, (int) TimeHelper.getUnixTimeStamp());
                         return ps;
                     }
                 },

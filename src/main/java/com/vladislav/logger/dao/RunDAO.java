@@ -1,5 +1,6 @@
 package com.vladislav.logger.dao;
 
+import com.vladislav.logger.helpers.TimeHelper;
 import com.vladislav.logger.models.Run;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,7 +25,7 @@ public class RunDAO {
     }
 
     public int createRun(Run run){
-        final String INSERT_SQL = "INSERT INTO run (build, day, month, year) value (?, ?, ?, ?)";
+        final String INSERT_SQL = "INSERT INTO run (build, day, month, year, timestamp) value (?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 new PreparedStatementCreator() {
@@ -35,6 +36,7 @@ public class RunDAO {
                         ps.setInt(2, run.getDay());
                         ps.setInt(3, run.getMonth());
                         ps.setInt(4, run.getYear());
+                        ps.setInt(5, (int) TimeHelper.getUnixTimeStamp());
                         return ps;
                     }
                 },

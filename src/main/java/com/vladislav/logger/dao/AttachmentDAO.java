@@ -1,5 +1,6 @@
 package com.vladislav.logger.dao;
 
+import com.vladislav.logger.helpers.TimeHelper;
 import com.vladislav.logger.models.Attachment;
 import com.vladislav.logger.models.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class AttachmentDAO {
     }
 
     public int createNewAttachment(Attachment attachment){
-        final String INSERT_SQL = "INSERT INTO attachments (action_id, location) value (?, ?)";
+        final String INSERT_SQL = "INSERT INTO attachments (action_id, location, timestamp ) value (?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 new PreparedStatementCreator() {
@@ -34,6 +35,7 @@ public class AttachmentDAO {
                                 connection.prepareStatement(INSERT_SQL, new String[] {"id"});
                         ps.setInt(1, attachment.getActionId());
                         ps.setString(2, attachment.getLocation());
+                        ps.setInt(3, (int) TimeHelper.getUnixTimeStamp());
                         return ps;
                     }
                 },
