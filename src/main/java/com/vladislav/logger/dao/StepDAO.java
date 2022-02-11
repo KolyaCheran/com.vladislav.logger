@@ -50,7 +50,7 @@ public class StepDAO {
     }
 
     public void removeOldSteps(int timestamp){
-        final String DELETE_SQL = "DELETE FROM step where timestamp<?>";
+        final String DELETE_SQL = "DELETE FROM step where timestamp<?";
         jdbcTemplate.update(DELETE_SQL, timestamp);
     }
 }
