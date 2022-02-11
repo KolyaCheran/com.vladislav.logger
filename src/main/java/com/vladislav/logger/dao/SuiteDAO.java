@@ -106,4 +106,9 @@ public class SuiteDAO {
                 new Object[]{year, month, day, buildName});
         return suites;
     }
+
+    public void removeOldSuites(int timestamp){
+        final String DELETE_SQL = "DELETE FROM suite where timestamp<?";
+        jdbcTemplate.update(DELETE_SQL, timestamp);
+    }
 }

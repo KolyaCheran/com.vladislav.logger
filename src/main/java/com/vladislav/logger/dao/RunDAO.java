@@ -62,4 +62,9 @@ public class RunDAO {
         });
         return uniqueRuns;
     }
+
+    public void removeOldRuns(int timestamp){
+        final String DELETE_SQL = "DELETE FROM run where timestamp<?";
+        jdbcTemplate.update(DELETE_SQL, timestamp);
+    }
 }

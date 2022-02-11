@@ -48,4 +48,9 @@ public class StepDAO {
         jdbcTemplate.update("UPDATE step SET result=? WHERE id=?",
                 step.getResult(), step.getId());
     }
+
+    public void removeOldSteps(int timestamp){
+        final String DELETE_SQL = "DELETE FROM step where timestamp<?>";
+        jdbcTemplate.update(DELETE_SQL, timestamp);
+    }
 }

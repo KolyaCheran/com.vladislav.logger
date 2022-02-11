@@ -146,4 +146,9 @@ public class TestDAO {
                 new Integer[]{actionId});
         return attachments;
     }
+
+    public void removeOldTests(int timestamp){
+        final String DELETE_SQL = "DELETE FROM test where timestamp<?";
+        jdbcTemplate.update(DELETE_SQL, timestamp);
+    }
 }

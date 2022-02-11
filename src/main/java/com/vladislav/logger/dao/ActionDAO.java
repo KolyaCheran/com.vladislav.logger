@@ -50,4 +50,9 @@ public class ActionDAO {
         jdbcTemplate.update("UPDATE action SET error=?, result=? WHERE id=?",
                 action.getError(), action.getResult(), action.getId());
     }
+
+    public void removeOldActions(int timestamp){
+        final String DELETE_SQL = "DELETE FROM action where timestamp<?";
+        jdbcTemplate.update(DELETE_SQL, timestamp);
+    }
 }

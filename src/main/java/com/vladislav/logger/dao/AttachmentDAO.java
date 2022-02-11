@@ -52,4 +52,8 @@ public class AttachmentDAO {
         return attachments.get(0);
     }
 
+    public void removeOldAttachments(int timestamp){
+        final String DELETE_SQL = "DELETE FROM attachments where timestamp<?";
+        jdbcTemplate.update(DELETE_SQL, timestamp);
+    }
 }
