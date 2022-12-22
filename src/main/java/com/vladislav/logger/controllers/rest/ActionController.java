@@ -17,12 +17,12 @@ public class ActionController {
     }
 
     @PostMapping("/new")
-    public String createNewTest(@RequestParam("stepid") int stepId,
-                                @RequestParam("message") String message,
-                                @RequestParam("result") String result,
-                                @RequestParam("actionhour") int actionHour,
-                                @RequestParam("actionminute") int actionMinute,
-                                @RequestParam("actionsecond") int actionSecond){
+    public String createNewAction(@RequestParam("stepid") int stepId,
+                                  @RequestParam("message") String message,
+                                  @RequestParam("result") String result,
+                                  @RequestParam("actionhour") int actionHour,
+                                  @RequestParam("actionminute") int actionMinute,
+                                  @RequestParam("actionsecond") int actionSecond) {
         Action action = new Action();
         action.setStepId(stepId);
         action.setMessage(message);
@@ -31,13 +31,13 @@ public class ActionController {
         action.setActionMinute(actionMinute);
         action.setActionSecond(actionSecond);
         int actionId = actionDAO.createNewAction(action);
-        return "{\"id\": " + actionId +" }";
+        return "{\"id\": " + actionId + " }";
     }
 
     @PatchMapping("/{id}/update/error")
-    public String createNewTest(@PathVariable("id") int id,
+    public String updateActionWithError(@PathVariable("id") int id,
                                 @RequestParam("error") String error,
-                                @RequestParam("result") String result){
+                                @RequestParam("result") String result) {
         Action action = new Action();
         action.setId(id);
         action.setError(error);

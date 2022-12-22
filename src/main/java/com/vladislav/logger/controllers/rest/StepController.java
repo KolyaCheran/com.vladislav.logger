@@ -17,7 +17,7 @@ public class StepController {
     }
 
     @PostMapping("/new")
-    public String createNewTest(@RequestParam("testid") int testId,
+    public String createNewStep(@RequestParam("testid") int testId,
                                 @RequestParam("message") String message,
                                 @RequestParam("result") String result){
         Step step = new Step();
