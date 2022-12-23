@@ -17,7 +17,8 @@
             var data = google.visualization.arrayToDataTable([
                 ['Task', 'Pass rate'],
                 ['Passed',     [[${report.getPassedTests().size()}]]],
-                ['Failed',     [[${report.getFailedTests().size()}]]]
+                ['Failed',     [[${report.getFailedTests().size()}]]],
+                ["Skipped",    [[${report.getSkippedTests().size()}]]]
             ]);
 
             var options = {
@@ -25,7 +26,8 @@
                 pieSliceText: "value",
                 slices: {
                     0: { color: '#50C878' },
-                    1: { color: 'red' }
+                    1: { color: 'red' },
+                    2: { color: '#747575' }
                 }
             };
 
@@ -73,7 +75,7 @@
                 <div th:switch="${suite.getResult()}">
                     <td th:case="passed" class="table-success" th:text="${suite.getResult()}">result</td>
                     <td th:case="failed" class="table-danger" th:text="${suite.getResult()}">result</td>
-                    <td th:case="skip" class="table-secondary" th:text="${suite.getResult()}">result</td>
+                    <td th:case="skipped" class="table-secondary" th:text="${suite.getResult()}">result</td>
                     <td th:case="*" class="table-primary" th:text="${suite.getResult()}">result</td>
                 </div>
                 <div th:switch="${suite.getStatus()}">

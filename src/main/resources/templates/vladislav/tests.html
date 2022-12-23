@@ -32,7 +32,7 @@
                 <div th:switch="${currentTest.getResult()}">
                     <td th:case="passed" class="table-success" th:text="${currentTest.getResult()}">result</td>
                     <td th:case="failed" class="table-danger" th:text="${currentTest.getResult()}">result</td>
-                    <td th:case="skip" class="table-secondary" th:text="${currentTest.getResult()}">result</td>
+                    <td th:case="skipped" class="table-secondary" th:text="${currentTest.getResult()}">result</td>
                     <td th:case="*" class="table-primary" th:text="${currentTest.getResult()}">result</td>
                 </div>
                 <div th:switch="${currentTest.getStatus()}">
