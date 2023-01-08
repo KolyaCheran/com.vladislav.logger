@@ -34,7 +34,7 @@ public class ViewAttachmentController {
     @GetMapping(value = "/image/{id}")
     public @ResponseBody byte[] getImage(@PathVariable("id") String id) {
         Attachment attachment = attachmentDAO.getAttachment(Integer.parseInt(id.replaceAll("\\.jpeg", "")));
-        return extractBytes(attachment.getLocation() + "\\" + attachment.getId() + ".jpeg");
+        return extractBytes(attachment.getLocation() + File.separator + attachment.getId() + ".jpeg");
     }
 
     public byte[] extractBytes(String ImageName) {

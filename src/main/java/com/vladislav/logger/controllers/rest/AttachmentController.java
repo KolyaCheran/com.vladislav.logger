@@ -29,7 +29,7 @@ public class AttachmentController {
         attachment.setLocation(location);
         attachment.setId(attachmentDAO.createNewAttachment(attachment));
 
-        File newFile = new File(location + "\\" + attachment.getId() + ".jpeg");
+        File newFile = new File(location + File.separator + attachment.getId() + ".jpeg");
         newFile.getParentFile().mkdirs();
         try {
             file.transferTo(newFile);
@@ -42,6 +42,6 @@ public class AttachmentController {
     private String getFileLocationByDate(){
         LocalDateTime ldt = LocalDateTime.now();
         return System.getProperty("user.home") +
-                "\\screens\\" + ldt.getDayOfMonth() + "." + ldt.getMonthValue() + "." + ldt.getYear();
+              File.separator + "screens" + File.separator + ldt.getDayOfMonth() + "." + ldt.getMonthValue() + "." + ldt.getYear();
     }
 }
