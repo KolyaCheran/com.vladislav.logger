@@ -40,7 +40,7 @@ public class ScheduledTasks {
     @Scheduled(cron = "0 0 */1 * * *")
     private void deleteOldAttachments(){
         System.out.println("Try to remove old attachments");
-        String location = System.getProperty("user.home") + "\\screens\\";
+        String location = System.getProperty("user.home") + File.separator + "screens" + File.separator;
         File file = new File(location);
         String [] directories = file.list();
         if(directories == null){
@@ -49,7 +49,10 @@ public class ScheduledTasks {
         for (String directory : directories) {
             if(isOldDirectory(directory)) {
                 try {
-                    FileUtils.deleteDirectory(new File(location + directory));
+                    File directoryToRemove = new File(location + directory);
+                    if (directoryToRemove.isDirectory()) {
+                        FileUtils.deleteDirectory(new File(location + directory));
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
