@@ -18,6 +18,7 @@
                 ['Task', 'Pass rate'],
                 ['Passed',     [[${report.getPassedTests().size()}]]],
                 ['Failed',     [[${report.getFailedTests().size()}]]],
+                ['Not finished',     [[${report.getNotFinishedTests().size()}]]],
                 ["Skipped",    [[${report.getSkippedTests().size()}]]]
             ]);
 
@@ -27,7 +28,8 @@
                 slices: {
                     0: { color: '#50C878' },
                     1: { color: 'red' },
-                    2: { color: '#747575' }
+                    2: { color: '#999a9a' },
+                    3: { color: '#747575' }
                 }
             };
 
