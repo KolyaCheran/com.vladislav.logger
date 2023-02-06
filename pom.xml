@@ -7,7 +7,7 @@
   <groupId>org.example</groupId>
   <artifactId>com.vladislav.logger</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -25,6 +25,7 @@
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
     <java.version>1.8</java.version>
+    <start-class>com.vladislav.logger.main.Application</start-class>
   </properties>
 
   <dependencies>
@@ -79,8 +80,24 @@
 
   <build>
     <finalName>com.vladislav.logger</finalName>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (maybe moved to parent pom) -->
       <plugins>
+
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <configuration>
+            <mainClass>com.vladislav.logger.main.Application</mainClass>
+            <layout>JAR</layout>
+          </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>repackage</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
 
         <plugin>
           <groupId>org.springframework.boot</groupId>

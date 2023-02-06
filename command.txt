@@ -1,0 +1,5 @@
+mvn package spring-boot:repackage //create jar
+
+docker build -t logger:1.0 .     // create docker image
+
+docker run -d -p 8081:8081 logger:1.0 // run docker container from image
