@@ -1,6 +1,7 @@
 package com.vladislav.logger.controllers.rest;
 
 import com.vladislav.logger.dao.SuiteDAO;
+import com.vladislav.logger.helpers.Result;
 import com.vladislav.logger.models.Suite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -55,7 +56,7 @@ public class SuiteController {
                                @RequestParam("result") String result){
         Suite suite = new Suite();
         suite.setId(stepId);
-        suite.setResult(result);
+        suite.setResult(Result.getResultByText(result));
         suiteDAO.updateSuiteResult(suite);
         return "{\"success\": true }";
     }

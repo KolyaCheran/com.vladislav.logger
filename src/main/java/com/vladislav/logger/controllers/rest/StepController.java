@@ -1,6 +1,7 @@
 package com.vladislav.logger.controllers.rest;
 
 import com.vladislav.logger.dao.StepDAO;
+import com.vladislav.logger.helpers.Result;
 import com.vladislav.logger.models.Step;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class StepController {
         Step step = new Step();
         step.setTestId(testId);
         step.setMessage(message);
-        step.setResult(result);
+        step.setResult(Result.getResultByText(result));
         int stepId = stepDAO.createNewStep(step);
         return "{\"id\": " + stepId +" }";
     }
@@ -33,7 +34,7 @@ public class StepController {
                                 @RequestParam("result") String result){
         Step step = new Step();
         step.setId(stepId);
-        step.setResult(result);
+        step.setResult(Result.getResultByText(result));
         stepDAO.updateStepResult(step);
         return "{\"success\": true }";
     }

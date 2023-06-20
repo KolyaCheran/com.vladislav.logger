@@ -1,5 +1,7 @@
 package com.vladislav.logger.models;
 
+import com.vladislav.logger.helpers.Result;
+
 public class Suite {
 
     private int id;
@@ -7,7 +9,7 @@ public class Suite {
     private String name;
     private String suiteInfo;
     private String status;
-    private String result;
+    private Result result;
     private int startMinute;
     private int startHour;
     private int startSecond;
@@ -19,7 +21,7 @@ public class Suite {
         this.id = id;
         this.name = name;
         this.status = status;
-        this.result = result;
+        this.result = Result.getResultByText(result);
         this.startMinute = startMinute;
         this.startHour = startHour;
         this.startSecond = startSecond;
@@ -121,10 +123,10 @@ public class Suite {
     }
 
     public String getResult() {
-        return result;
+        return result.getResultText();
     }
 
-    public void setResult(String result) {
+    public void setResult(Result result) {
         this.result = result;
     }
 }

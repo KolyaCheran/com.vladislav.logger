@@ -1,18 +1,20 @@
 package com.vladislav.logger.models;
 
+import com.vladislav.logger.helpers.Result;
+
 import java.util.List;
 
 public class Step {
 
     private int id;
     private int testId;
-    private String result;
+    private Result result;
     private String message;
     private List<Action> actions;
 
     public Step(int id, String result, String message) {
         this.id = id;
-        this.result = result;
+        this.result = Result.getResultByText(result);
         this.message = message;
     }
 
@@ -45,10 +47,10 @@ public class Step {
     }
 
     public String getResult() {
-        return result;
+        return result.getResultText();
     }
 
-    public void setResult(String result) {
+    public void setResult(Result result) {
         this.result = result;
     }
 

@@ -1,6 +1,7 @@
 package com.vladislav.logger.controllers.rest;
 
 import com.vladislav.logger.dao.TestDAO;
+import com.vladislav.logger.helpers.Result;
 import com.vladislav.logger.models.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class TestController {
         Test test = new Test();
         test.setName(name);
         test.setSuiteId(suiteId);
-        test.setResult(result);
+        test.setResult(Result.getResultByText(result));
         test.setStatus(status);
         int testId = testDAO.createNewTest(test);
         return "{\"id\": " + testId +" }";
@@ -42,7 +43,7 @@ public class TestController {
         test.setStartHour(startHour);
         test.setStartMinute(startMinute);
         test.setStartSecond(startSecond);
-        test.setResult(result);
+        test.setResult(Result.getResultByText(result));
         test.setStatus(status);
         testDAO.updateTestOnStart(test);
         return "{\"success\": true}";
@@ -53,7 +54,7 @@ public class TestController {
                                     @RequestParam("result") String result){
         Test test = new Test();
         test.setId(id);
-        test.setResult(result);
+        test.setResult(Result.getResultByText(result));
         testDAO.updateTestResult(test);
         return "{\"success\": true}";
     }
@@ -70,7 +71,7 @@ public class TestController {
         test.setEndHour(endHour);
         test.setEndMinute(endMinute);
         test.setEndSecond(endSecond);
-        test.setResult(result);
+        test.setResult(Result.getResultByText(result));
         test.setStatus(status);
         testDAO.updateTestOnFinish(test);
         return "{\"success\": true}";

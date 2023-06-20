@@ -1,8 +1,9 @@
 package com.vladislav.logger.dao;
 
+import com.vladislav.logger.helpers.Result;
 import com.vladislav.logger.helpers.TimeHelper;
-import com.vladislav.logger.models.Action;
 import com.vladislav.logger.models.Suite;
+import com.vladislav.logger.models.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -13,10 +14,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @Component
 public class SuiteDAO {
@@ -72,12 +70,41 @@ public class SuiteDAO {
                 suite.getId());
     }
 
-    public List<Suite> getSuites(String ids) {
-        String inSql = String.join(",", Collections.nCopies(ids.split(",").length, "?"));
+    private void changeResultsForSuites(List<Suite> suites){ //results need to be updated on fly when page loaded because of auto-rerun tests
+        for (Suite suite : suites){
+            List<Test> tests = jdbcTemplate.query("SELECT * FROM test WHERE suite_id=?",
+                    (rs, rowNum) -> new Test(rs.getInt("id"),
+                            rs.getString("name"),
+                            rs.getString("status"),
+                            rs.getString("result"),
+                            rs.getInt("start_hour"),
+                            rs.getInt("start_minute"),
+                            rs.getInt("start_second"),
+                            rs.getInt("end_hour"),
+                            rs.getInt("end_minute"),
+                            rs.getInt("end_second")), new Integer[] {suite.getId()});
+            Result result = getTheWorstResultOfTest(tests);
+            Suite updatedSuite = new Suite();
+            updatedSuite.setId(suite.getId());
+            updatedSuite.setResult(result);
+            updateSuiteResult(updatedSuite);
+        }
+    }
 
-        List<Suite> suites = jdbcTemplate.query(
-                String.format("SELECT * FROM suite WHERE run_id IN (%s)", inSql),
-                (rs, rowNum) -> new Suite(rs.getInt("id"),
+    private Result getTheWorstResultOfTest(List<Test> tests){
+        Result resultForReturn = Result.NOT_RUN;
+        for (Test test : tests){
+            if(Result.getResultByText(test.getResult()).getResultIndex() > resultForReturn.getResultIndex()){
+                resultForReturn = Result.getResultByText(test.getResult());
+            }
+        }
+        return resultForReturn;
+    }
+
+    public List<Suite> getSuites(String buildName, String day, String month, String year) {
+        String query = "SELECT * FROM run AS r RIGHT JOIN suite AS s ON r.id = s.run_id WHERE r.year=? AND r.month=? AND r.day=? AND build=?;";
+        List<Suite> suites = jdbcTemplate.query(query,
+                (rs, rowNun) -> new Suite(rs.getInt("s.id"),
                         rs.getString("name"),
                         rs.getString("status"),
                         rs.getString("result"),
@@ -86,13 +113,10 @@ public class SuiteDAO {
                         rs.getInt("start_hour"),
                         rs.getInt("end_second"),
                         rs.getInt("end_minute"),
-                        rs.getInt("end_hour")), ids.split(","));
-        return suites;
-    }
-
-    public List<Suite> getSuites(String buildName, String day, String month, String year) {
-        String query = "SELECT * FROM run AS r RIGHT JOIN suite AS s ON r.id = s.run_id WHERE r.year=? AND r.month=? AND r.day=? AND build=?;";
-        List<Suite> suites = jdbcTemplate.query(query,
+                        rs.getInt("end_hour")),
+                new Object[]{year, month, day, buildName});
+        changeResultsForSuites(suites);
+        suites = jdbcTemplate.query(query,
                 (rs, rowNun) -> new Suite(rs.getInt("s.id"),
                         rs.getString("name"),
                         rs.getString("status"),

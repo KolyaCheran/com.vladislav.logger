@@ -1,5 +1,7 @@
 package com.vladislav.logger.models;
 
+import com.vladislav.logger.helpers.Result;
+
 import java.util.List;
 
 public class Test {
@@ -7,7 +9,7 @@ public class Test {
     private int suiteId;
     private String name;
     private String status;
-    private String result;
+    private Result result;
     private int startHour;
     private int startMinute;
     private int startSecond;
@@ -20,7 +22,7 @@ public class Test {
         this.id = id;
         this.name = name;
         this.status = status;
-        this.result = result;
+        this.result = Result.getResultByText(result);
         this.startHour = startHour;
         this.startMinute = startMinute;
         this.startSecond = startSecond;
@@ -74,10 +76,10 @@ public class Test {
     }
 
     public String getResult() {
-        return result;
+        return result.getResultText();
     }
 
-    public void setResult(String result) {
+    public void setResult(Result result) {
         this.result = result;
     }
 
